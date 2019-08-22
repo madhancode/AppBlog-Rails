@@ -1,0 +1,20 @@
+<h1>Add New Post</h1>
+<%= form_for @post, html: { multipart: true } do |f| %>
+
+    <p>
+        <%= f.text_field :title, placeholder: "Title" %><br />        
+    </p>
+    <p>
+        <%= f.file_field :image %><br />        
+    </p>
+    <p>
+        <%= f.text_area :content, placeholder: "Content" %><br />
+    </p>
+    <p>
+
+    </p>
+    <p>
+        <%= f.submit "Post" %>
+    </p>
+
+<% end %>

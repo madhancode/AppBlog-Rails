@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AppBlog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="flex-btw white-bg">
+      <% if current_user %>
+        <h2>Blog-App (<%= current_user.name %>)</h2>
+        <ol>
+          <li><%= link_to 'Home', posts_index_path %></li>
+          <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        </ol>
+      <% else %>
+        <h2>Blog-App</h2>
+        <ol>
+          <li><%= link_to 'SignUp', new_registration_path(resource_name) %></li>
+          <li><%= link_to 'Login', new_user_session_path %></li>
+        </ol>
+      <% end %>
+    </div>
+    <% if notice || alert %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+    <%= yield %>
+
+  </body>
+</html>

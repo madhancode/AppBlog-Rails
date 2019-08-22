@@ -1,0 +1,60 @@
+
+<h1>Every post will be displayed here</h1>
+
+<%= link_to "Add New Post",new_post_path %>
+
+
+<% @posts.each do |post| %>
+    
+    <div class="card">
+        <div class="thumbnail"><%= image_tag post.image.url, class:"left" %></div>
+        <div class="right">
+            <h2><%= link_to post.user.name, user_path(post.user.id) %></h1>
+            <small class="flex-btw">
+                <%= post.user.email %>
+                <span>(<%= time_ago_in_words(post.created_at) %>)</span>
+            </small>
+            <div class="separator"></div>
+            <h1><%= post.title %></h2>
+            <p><%= post.content %></p>
+        </div>
+        <h5><%= post.created_at.strftime("%d") %></h5>
+        <h6><%= post.created_at.strftime("%^b %Y") %></h6>
+        <ul>
+            <!-- <li><i class="fa fa-eye fa-2x"></i></li>
+            <li><i class="fa fa-heart-o fa-2x"></i></li>
+            <li><i class="fa fa-envelope-o fa-2x"></i></li>
+            <li><i class="fa fa-share-alt fa-2x"></i></li> -->
+            <% 
+                array=[] 
+                post.likes.find_each do |like| 
+                    array.push(like.user_id)
+                end
+                liked_users = User.where(id: array) 
+                like_text = "Liked by: "
+                if liked_users != []
+                    liked_users.each { |item|
+                        like_text += item.name+', '
+                    }
+                else
+                    like_text += 'None'
+                end 
+            %>
+
+            <li title="<%= like_text %>">
+                <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
+                <% if pre_like %>
+                    <%= button_to post_like_path(post, pre_like), method: :delete do %>
+                        <i class='material-icons star md-40'>star</i>
+                    <% end %>
+                <% else %>
+                    <%= button_to post_likes_path(post), method: :post do%>
+                        <i class='material-icons md-40'>star_border</i> 
+                    <% end %>
+                <% end %>
+                <span><%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%></span>
+            </li>
+        </ul>
+    </div>
+
+<% end %>
