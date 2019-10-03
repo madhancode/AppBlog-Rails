@@ -40,14 +40,14 @@
                 <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
                 <% if pre_like %>
                     <%= button_to post_like_path(post, pre_like), method: :delete do %>
-                        <i class='material-icons star md-40'>star</i>
+                        <i class='material-icons favorite md-40'>favorite</i>
                     <% end %>
                 <% else %>
                     <%= button_to post_likes_path(post), method: :post do%>
-                        <i class='material-icons md-40'>star_border</i> 
+                        <i class='material-icons md-40'>favorite_border</i> 
                     <% end %>
                 <% end %>
-                <span><%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%></span>
+                <span><%= pluralize(post.likes.count, "Like") %></span>
             </li>
         </ul>
     </div>

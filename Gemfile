@@ -6,6 +6,7 @@ ruby '2.6.3'
 gem 'devise'
 gem "paperclip", "~> 6.0.0"
 gem 'dotenv-rails'
+gem 'jquery-rails'  
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
